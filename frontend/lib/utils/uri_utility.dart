@@ -69,7 +69,7 @@ class UriUtility {
       return false;
     }
 
-    var data = json.decode(response.body);
+    var data = json.decode(utf8.decode(response.bodyBytes));
     return data is Map && data['full_name'] == '$user/$repo';
   }
 }

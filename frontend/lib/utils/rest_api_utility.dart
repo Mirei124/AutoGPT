@@ -32,7 +32,7 @@ class RestApiUtility {
     final effectiveBaseUrl = _getEffectiveBaseUrl(apiType);
     final response = await http.get(Uri.parse('$effectiveBaseUrl/$endpoint'));
     if (response.statusCode == 200) {
-      return json.decode(response.body);
+      return json.decode(utf8.decode(response.bodyBytes));
     } else {
       throw Exception('Failed to load data');
     }
@@ -48,7 +48,7 @@ class RestApiUtility {
       headers: {"Content-Type": "application/json"},
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
-      return json.decode(response.body);
+      return json.decode(utf8.decode(response.bodyBytes));
     } else {
       // TODO: We are bubbling up the full response to show better errors on the UI.
       // Let's put some thought into how we would like to structure this.
@@ -66,7 +66,7 @@ class RestApiUtility {
       headers: {"Content-Type": "application/json"},
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
-      return json.decode(response.body);
+      return json.decode(utf8.decode(response.bodyBytes));
     } else {
       throw Exception('Failed to update data with PUT request');
     }
